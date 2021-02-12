@@ -30,8 +30,6 @@ def pagina_no_funciona(error):
 def obtener_registro(dni):
     """ Obtiene un registro según el DNI de la persona """
 
-    #TODO: Implementar expresión regular para validar entrada.
-
     registro = Registro.query.get(dni)
 
     if not registro:
@@ -44,7 +42,6 @@ def obtener_registro(dni):
 def crear_registro():
     """ Genera un nuevo registro a partir de la página del RNP """
 
-    #TODO: Implementar expresión regular para validar entrada.
     busqueda = request.json['identidad']
 
     rnp_registro = Buscar(busqueda)
@@ -55,7 +52,7 @@ def crear_registro():
     nuevo_registro = Registro(dni=rnp_registro.identidad,
             recibo=rnp_registro.recibo,
             nombre=rnp_registro.nombre,
-            lugar=rnp_registro.municipio,
+            lugar=rnp_registro.lugar,
             inconsistencias=rnp_registro.inconcistencias)
 
     db.session.add(nuevo_registro)
