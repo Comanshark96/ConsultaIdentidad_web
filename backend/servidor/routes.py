@@ -26,7 +26,7 @@ def pagina_no_funciona(error):
 
     return mensaje, 404
 
-@app.route('/api/v1.0.0/registro/<string:dni>', methods=['GET',])
+@app.route('/api/v1.0/registros/<string:dni>', methods=['GET'])
 def obtener_registro(dni):
     """ Obtiene un registro según el DNI de la persona """
 
@@ -35,10 +35,10 @@ def obtener_registro(dni):
     if not registro:
         return abort(404, description='La persona no se encuentra en la base de datos')
 
-    return serializar_registro(registro)
+    return serializar_registro(registro), 200
 
 
-@app.route('/api/v1.0.0/registro', methods=['POST'])
+@app.route('/api/v1.0/registros', methods=['POST'])
 def crear_registro():
     """ Genera un nuevo registro a partir de la página del RNP """
 
@@ -58,4 +58,4 @@ def crear_registro():
     db.session.add(nuevo_registro)
     db.session.commit()
 
-    return serializar_registro(nuevo_registro)
+    return serializar_registro(nuevo_registro), 201
